@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet id="create-table-students" author="igorpomazkov">
+        <createTable tableName="students">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="first_name" type="varchar"/>
+            <column name="last_name" type="varchar"/>
+            <column name="middle_name" type="varchar"/>
+            <column name="identifier" type="bigint"/>
+            <column name="group_id" type="bigint">
+                <constraints foreignKeyName="student-group-fk" referencedTableName="groups" referencedColumnNames="id"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints foreignKeyName="teacher-user-fk" referencedTableName="users" referencedColumnNames="id"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="insert-data-into-students-table" author="igorpomazkov">
+        <sql>
+            INSERT INTO students(last_name, first_name, middle_name, group_id)
+            VALUES('Адамов','Николай','Андреевич', 1),
+            ('Асадчий','Андрей','Сергеевич', 1),
+            ('Бруй','Алексей','Александрович', 1),
+            ('Викторович','Алеся','Владимировна', 1),
+            ('Ганчук','Вадим','Дмитриевич', 1),
+            ('Гречихин','Антон','Александрович', 1),
+            ('Гуща','Антон','Витальевич', 1),
+            ('Зарембо','Антон','Игоревич', 1),
+            ('Калько','Александр','Сергеевич', 1),
+            ('Ковальчук','Евгений','Владимирович', 1),
+            ('Лобачевская','Татьяна','Анатольевна', 1),
+            ('Мусский','Александр','Игоревич', 1),
+            ('Новосёлов','Никита','Александрович', 1),
+            ('Помазков','Игорь','Александрович', 1),
+            ('Пресняков','Владимир','Романович', 1),
+            ('Прокопенко','Дарья','Михайловна', 1),
+            ('Процик','Артём','Андреевич', 1),
+            ('Сабило','Владимир','Алексеевич', 1),
+            ('Сенакосова','Надежда','Валерьевна', 1),
+            ('Стригельская','Яна','Сергеевна', 1),
+            ('Третьяков','Дмитрий','Викторович', 1),
+            ('Трубин','Егор','Андреевич', 1),
+            ('Хасеневич','Владислав','Олегович', 1),
+            ('Шакурова','Екатерина','Сергеевна', 1),
+            ('Язвинский','Константин','Андреевич', 1),
+            ('Иванов','Иван','Иванович', 2),
+            ('Антонов','Антон','Антонович', 2),
+            ('Петров','Петр','Петрович', 2),
+            ('Сергеев','Сергей','Сергеевич', 3),
+            ('Дмитриев','Дмитрий','Дмитриевич', 3),
+            ('Андреев','Андрей','Андреевич', 3)
+        </sql>
+    </changeSet>
+</databaseChangeLog>

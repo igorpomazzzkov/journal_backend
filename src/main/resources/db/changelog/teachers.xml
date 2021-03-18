@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet id="create-table-teachers" author="igorpomazkov">
+        <createTable tableName="teachers">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints unique="true" nullable="false" primaryKey="true"/>
+            </column>
+            <column name="first_name" type="varchar"/>
+            <column name="last_name" type="varchar"/>
+            <column name="middle_name" type="varchar"/>
+            <column name="user_id" type="bigint">
+                <constraints foreignKeyName="teacher-user-fk" referencedTableName="users" referencedColumnNames="id"/>
+            </column>
+            <column name="description" type="text"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="insert-data-into-teachers-table" author="igorpomazkov">
+        <sql>
+            INSERT INTO teachers(last_name, first_name, middle_name, user_id, description)
+            VALUES('Парафиянович','Томара','Константиновна', 2, 'Доцент кафедры ИРТ')
+        </sql>
+    </changeSet>
+</databaseChangeLog>

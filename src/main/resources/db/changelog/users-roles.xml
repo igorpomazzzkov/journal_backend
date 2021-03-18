@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet id="create-table-users-roles" author="igorpomazkov">
+        <createTable tableName="users_roles">
+            <column name="id" autoIncrement="true" type="bigint">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints foreignKeyName="user_role_fk"
+                             referencedTableName="users"
+                             deleteCascade="true"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="role_id" type="bigint">
+                <constraints foreignKeyName="role_user_fk"
+                             referencedTableName="roles"
+                             deleteCascade="true"
+                             referencedColumnNames="id"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="insert-data-into-users-roles-table" author="igorpomazkov">
+        <sql>
+            INSERT INTO users_roles(user_id, role_id)
+            VALUES(1, 1)
+        </sql>
+        <sql>
+            INSERT INTO users_roles(user_id, role_id)
+            VALUES(2, 1),
+            (2, 2)
+        </sql>
+    </changeSet>
+</databaseChangeLog>
