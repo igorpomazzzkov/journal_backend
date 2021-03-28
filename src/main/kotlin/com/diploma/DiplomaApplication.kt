@@ -7,5 +7,7 @@ import org.springframework.boot.runApplication
 class DiplomaApplication
 
 fun main(args: Array<String>) {
-	runApplication<DiplomaApplication>(*args)
+    runApplication<DiplomaApplication>(*args)
 }
+
+

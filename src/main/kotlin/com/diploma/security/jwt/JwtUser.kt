@@ -7,7 +7,7 @@ import java.util.Date
 class JwtUser(
     private val id: Long? = null,
     private val username: String,
-    private val password: String,
+    private val password: String?,
     private val enabled: Boolean = true,
     private val lastPasswordResetDate: Date? = null,
     private val authorities: MutableCollection<out GrantedAuthority>?
@@ -17,7 +17,7 @@ class JwtUser(
         return authorities
     }
 
-    override fun getPassword(): String {
+    override fun getPassword(): String? {
         return password
     }
 

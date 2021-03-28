@@ -4,13 +4,14 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "groups")
-data class GroupEntity (
+data class GroupEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true)
     val id: Long = 0,
 
     @Column(name = "name", nullable = false)
-    val name: String = "",
+    val name: String? = null,
 
     @Column(name = "course", nullable = true)
     val course: Int? = null,

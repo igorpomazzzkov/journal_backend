@@ -10,9 +10,6 @@
             <column name="id" autoIncrement="true" type="bigint">
                 <constraints primaryKey="true" nullable="false" unique="true"/>
             </column>
-            <column name="username" type="varchar">
-                <constraints unique="true" nullable="false"/>
-            </column>
             <column name="email" type="varchar">
                 <constraints unique="true" nullable="false"/>
             </column>
@@ -25,9 +22,9 @@
     </changeSet>
     <changeSet id="insert-data-into-users-table" author="igorpomazkov">
         <sql>
-            INSERT INTO users(username, email, mobile, password)
-            VALUES('admin', 'igorpomazzzkov@gmail.com', '+375445768092', '$2a$12$qScxRW0wwYT6qPk44ld.q.HA8ENqmA/0wZOCWOwBMG7jzpRHv1prW'),
-            ('parpha', 'pta@bsuir.by', +375296762154, '$2a$12$qScxRW0wwYT6qPk44ld.q.HA8ENqmA/0wZOCWOwBMG7jzpRHv1prW')
+            INSERT INTO users(email, mobile, password)
+            VALUES('igorpomazzzkov@gmail.com', '+375445768092', '$2a$12$qScxRW0wwYT6qPk44ld.q.HA8ENqmA/0wZOCWOwBMG7jzpRHv1prW'),
+            ('pta@bsuir.by', +375296762154, '$2a$12$qScxRW0wwYT6qPk44ld.q.HA8ENqmA/0wZOCWOwBMG7jzpRHv1prW')
         </sql>
     </changeSet>
 </databaseChangeLog>

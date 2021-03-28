@@ -12,7 +12,9 @@ class StudentMapper {
             lastName = studentEntity.lastName,
             firstName = studentEntity.firstName,
             middleName = studentEntity.middleName,
-            identifier = studentEntity.identifier
+            identifier = studentEntity.identifier,
+            email = studentEntity.user?.email,
+            image = studentEntity.user?.image
         )
     }
 }

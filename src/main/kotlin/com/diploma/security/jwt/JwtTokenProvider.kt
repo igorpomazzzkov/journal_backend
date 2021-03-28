@@ -1,6 +1,6 @@
 package com.diploma.security.jwt
 
-import com.diploma.entity.RoleEntity
+import com.diploma.entity.Role
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jws
 import io.jsonwebtoken.JwtException
@@ -44,7 +44,7 @@ class JwtTokenProvider {
         secret = Base64.getEncoder().encodeToString(secret.toByteArray())
     }
 
-    fun createToken(username: String, roles: Set<RoleEntity>): String {
+    fun createToken(username: String?, roles: Set<Role>): String {
         val claims: Claims = Jwts.claims().setSubject(username)
         claims["roles"] = getRoleNames(roles)
         claims["username"] = username
@@ -90,7 +90,7 @@ class JwtTokenProvider {
 
     }
 
-    private fun getRoleNames(roles: Set<RoleEntity>): Set<String> {
+    private fun getRoleNames(roles: Set<Role>): Set<String> {
         return roles.map {
             it.name
         }.toSet()

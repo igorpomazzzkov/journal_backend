@@ -9,18 +9,35 @@ data class Logout(
 )
 
 data class User(
-    val id: Long,
-    val username: String?,
+    val id: Long?,
     val email: String?,
     val role: List<Role>?,
+    val image: String?,
+    val mobile: String?
 )
 
 data class AddUser(
-    val username: String,
+    val firstName: String,
+    val lastName: String,
+    val middleName: String,
     val email: String,
     val password: String,
-    val roles: Set<Role>,
-    val teacher: AddTeacher
+    val groupId: Long?,
+    val roles: Set<Role>?,
+    val image: String?,
+    val mobile: String
+)
+
+data class UpdateUser(
+    val firstName: String?,
+    val lastName: String?,
+    val middleName: String?,
+    val groupId: Long?,
+    val email: String?,
+    val password: String?,
+    val roles: Set<Role>?,
+    val image: String?,
+    val mobile: String?
 )
 
 data class AuthenticateDto(

@@ -13,7 +13,7 @@
             <column name="first_name" type="varchar"/>
             <column name="last_name" type="varchar"/>
             <column name="middle_name" type="varchar"/>
-            <column name="identifier" type="bigint"/>
+            <column name="identifier" type="varchar"/>
             <column name="group_id" type="bigint">
                 <constraints foreignKeyName="student-group-fk" referencedTableName="groups" referencedColumnNames="id"/>
             </column>

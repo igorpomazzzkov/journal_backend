@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet id="create-table-journals" author="igorpomazkov">
+        <createTable tableName="journals">
+            <column name="id" autoIncrement="true" type="bigint">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="subject_id" type="bigint">
+                <constraints foreignKeyName="subject-journal-fk" referencedTableName="subjects"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="group_id" type="bigint">
+                <constraints foreignKeyName="group-journal-fk" referencedTableName="groups" referencedColumnNames="id"/>
+            </column>
+            <column name="teacher_id" type="bigint">
+                <constraints foreignKeyName="teacher-journal-fk" referencedTableName="teachers" referencedColumnNames="id"/>
+            </column>
+            <column name="created_date" type="datetime"/>
+            <column name="last_updated" type="timestamp"/>
+        </createTable>
+        <addUniqueConstraint tableName="journals" columnNames="subject_id, group_id" constraintName="subject_group_uk"/>
+    </changeSet>
+    <changeSet id="create-table-journals-info" author="igorpomazkov">
+        <createTable tableName="journal_info">
+            <column name="id" autoIncrement="true" type="bigint">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="journal_id" type="bigint">
+                <constraints foreignKeyName="journal-journal-info-fk" referencedTableName="journals"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="student_id" type="bigint">
+                <constraints foreignKeyName="student-journal-info-fk" referencedTableName="students"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="mark" type="int"/>
+            <column name="mark_type" type="int"/>
+            <column name="date" type="datetime"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

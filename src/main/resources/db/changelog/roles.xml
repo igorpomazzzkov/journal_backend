@@ -10,17 +10,23 @@
             <column name="id" autoIncrement="true" type="bigint">
                 <constraints primaryKey="true" nullable="false" unique="true"/>
             </column>
+            <column name="user_id" type="bigint">
+            <constraints foreignKeyName="user_role_fk"
+                         referencedTableName="users"
+                         deleteCascade="true"
+                         referencedColumnNames="id"/>
+            </column>
             <column name="name" type="varchar">
-                <constraints nullable="false" unique="true"/>
+                <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
     <changeSet id="insert-data-into-roles-table" author="igorpomazkov">
         <sql>
-            INSERT INTO roles (name)
-            VALUES ('ADMIN'),
-            ('TEACHER'),
-            ('STUDENT')
+            INSERT INTO roles (user_id, name)
+            VALUES (1, 'ADMIN'),
+            (2, 'TEACHER'),
+            (2, 'ADMIN')
         </sql>
     </changeSet>
 </databaseChangeLog>

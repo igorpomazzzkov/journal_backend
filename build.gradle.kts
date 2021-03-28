@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.diploma"
-version = "0.0.1-SNAPSHOT"
+version = "1.0"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
@@ -29,6 +29,8 @@ dependencies {
     implementation("org.springframework.security:spring-security-config")
     implementation("org.springframework.security:spring-security-web")
     implementation("io.jsonwebtoken", "jjwt", "0.9.0")
+    implementation("io.springfox", "springfox-swagger2", "2.9.2")
+    implementation("io.springfox", "springfox-swagger-ui", "2.9.2")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

@@ -18,8 +18,8 @@ class JwtUserDetailsService : UserDetailsService {
     @Autowired
     private lateinit var jwtUserMap: JwtUserMapper
 
-    override fun loadUserByUsername(username: String?): UserDetails {
-        return this.userService.findByEmailOrUsername(username).takeIf { it != null }.let {
+    override fun loadUserByUsername(username: String): UserDetails {
+        return this.userService.findByEmailOrMobile(username).takeIf { it != null }.let {
             it?.let { it1 -> jwtUserMap.createUserJwt(it1) }
         } ?: run {
             throw UsernameNotFoundException("User is not exists")

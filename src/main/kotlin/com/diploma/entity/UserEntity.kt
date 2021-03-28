@@ -1,16 +1,6 @@
 package com.diploma.entity
 
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.FetchType
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
-import javax.persistence.JoinColumn
-import javax.persistence.JoinTable
-import javax.persistence.ManyToMany
-import javax.persistence.OneToOne
-import javax.persistence.Table
+import javax.persistence.*
 
 @Entity
 @Table(name = "users")
@@ -19,26 +9,28 @@ class UserEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @Column(name = "username", unique = true, nullable = false)
-    val username: String,
-
     @Column(name = "email", unique = true, nullable = false)
     val email: String,
 
     @Column(name = "password", nullable = false)
-    var password: String,
+    var password: String? = null,
 
     @Column(name = "mobile", nullable = true)
-    var phone: String? = null,
+    var mobile: String? = null,
 
     @Column(name = "image", nullable = true)
     var image: String? = null,
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "users_roles",
+    @ElementCollection(targetClass = Role::class, fetch = FetchType.EAGER)
+    @CollectionTable(
+        name = "roles",
         joinColumns = [JoinColumn(name = "user_id", referencedColumnName = "id")],
-        inverseJoinColumns = [JoinColumn(name = "role_id", referencedColumnName = "id")]
     )
-    val roles: Set<RoleEntity> = emptySet()
+    @Enumerated(EnumType.STRING)
+    @Column(name = "name")
+    val roles: Set<Role> = emptySet()
 )
+
+enum class Role {
+    TEACHER, ADMIN, STUDENT
+}

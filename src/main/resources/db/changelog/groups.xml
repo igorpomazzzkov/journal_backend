@@ -15,7 +15,7 @@
             <column name="headman_id" type="bigint"/>
         </createTable>
     </changeSet>
-    <changeSet id="insert-data-into-groups-table" author="">
+    <changeSet id="insert-data-into-groups-table" author="igorpomazkov">
         <sql>
             INSERT INTO groups(name, course)
             VALUES ('844691', 3),

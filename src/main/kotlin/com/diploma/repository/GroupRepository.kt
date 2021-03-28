@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface GroupRepository : JpaRepository<GroupEntity, Long> {
+    fun findAllByNameIsContaining(name: String): List<GroupEntity>?
 }
