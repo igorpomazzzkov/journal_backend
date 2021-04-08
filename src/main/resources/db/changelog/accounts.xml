@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet id="create-accounts-table" author="igorpomazkov">
+        <createTable tableName="accounts">
+            <column name="id" autoIncrement="true" type="bigint">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="first_name" type="varchar"/>
+            <column name="last_name" type="varchar"/>
+            <column name="middle_name" type="varchar"/>
+            <column name="user_id" type="bigint">
+                <constraints foreignKeyName="account-user-fk" referencedTableName="users" referencedColumnNames="id"/>
+            </column>
+            <column name="birthday" type="datetime"/>
+            <column name="address" type="varchar"/>
+            <column name="image" type="varchar"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="insert-data-into-accounts-table" author="igorpomazkov">
+        <sql>
+            INSERT INTO accounts(last_name, first_name, user_id)
+            VALUES('Pomazkov','Igor', 1);
+            INSERT INTO accounts(last_name, first_name, middle_name, user_id)
+            VALUES('Парафиянович','Томара','Константиновна', 2);
+        </sql>
+    </changeSet>
+    <changeSet id="insert-data-into-accounts-table-two" author="igorpomazkov">
+        <sql>
+            INSERT INTO accounts(last_name, first_name, middle_name)
+            VALUES('Адамов','Николай','Андреевич'),
+            ('Асадчий','Андрей','Сергеевич'),
+            ('Бруй','Алексей','Александрович'),
+            ('Викторович','Алеся','Владимировна'),
+            ('Ганчук','Вадим','Дмитриевич'),
+            ('Гречихин','Антон','Александрович'),
+            ('Гуща','Антон','Витальевич'),
+            ('Зарембо','Антон','Игоревич'),
+            ('Калько','Александр','Сергеевич'),
+            ('Ковальчук','Евгений','Владимирович'),
+            ('Лобачевская','Татьяна','Анатольевна'),
+            ('Мусский','Александр','Игоревич'),
+            ('Новосёлов','Никита','Александрович'),
+            ('Помазков','Игорь','Александрович'),
+            ('Пресняков','Владимир','Романович'),
+            ('Прокопенко','Дарья','Михайловна'),
+            ('Процик','Артём','Андреевич'),
+            ('Сабило','Владимир','Алексеевич'),
+            ('Сенакосова','Надежда','Валерьевна'),
+            ('Стригельская','Яна','Сергеевна'),
+            ('Третьяков','Дмитрий','Викторович'),
+            ('Трубин','Егор','Андреевич'),
+            ('Хасеневич','Владислав','Олегович'),
+            ('Шакурова','Екатерина','Сергеевна'),
+            ('Язвинский','Константин','Андреевич'),
+            ('Иванов','Иван','Иванович'),
+            ('Антонов','Антон','Антонович'),
+            ('Петров','Петр','Петрович'),
+            ('Сергеев','Сергей','Сергеевич'),
+            ('Дмитриев','Дмитрий','Дмитриевич'),
+            ('Андреев','Андрей','Андреевич')
+        </sql>
+    </changeSet>
+</databaseChangeLog>

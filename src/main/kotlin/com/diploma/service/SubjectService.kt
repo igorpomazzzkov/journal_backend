@@ -1,11 +1,9 @@
 package com.diploma.service
 
 import com.diploma.dto.AddSubject
-import com.diploma.dto.UpdateStudent
 import com.diploma.dto.UpdateSubject
 import com.diploma.entity.SubjectEntity
 import com.diploma.exception.SubjectIdNotFoundedException
-import com.diploma.exception.TeacherIdNotFoundedException
 import com.diploma.repository.SubjectRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service

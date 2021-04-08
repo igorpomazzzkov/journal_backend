@@ -1,21 +1,19 @@
 package com.diploma.service
 
-import com.diploma.dto.User
+import com.diploma.dto.Account
 import com.diploma.entity.UserEntity
-import com.diploma.mappers.UserMapper
+import com.diploma.mappers.AccountMapper
+import com.diploma.repository.AccountRepository
 import com.diploma.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 
 interface UserService {
-    fun getAllUsers(): List<User>
-    fun findByEmail(email: String): User?
-    fun findById(id: Set<Long>): List<User>?
+    fun getAllUsers(): List<Account>
+    fun findByEmail(email: String): Account?
+    fun findById(id: Set<Long>): List<Account>?
     fun findByEmailOrMobile(email: String): UserEntity?
     fun delete(id: Long)
-    fun authenticatedUser(): String?
 }
 
 @Service
@@ -25,26 +23,26 @@ class UserServiceImpl : UserService {
     private lateinit var userRepository: UserRepository
 
     @Autowired
-    private lateinit var passwordEncoder: BCryptPasswordEncoder
+    private lateinit var accountRepository: AccountRepository
 
     @Autowired
-    private lateinit var userMapper: UserMapper
+    private lateinit var accountMapper: AccountMapper
 
-    override fun getAllUsers(): List<User> {
-        return this.userRepository.findAll().map {
-            userMapper.toResponse(it)
+    override fun getAllUsers(): List<Account> {
+        return this.accountRepository.findAll().map {
+            accountMapper.toResponse(it)
         }
     }
 
-    override fun findByEmail(email: String): User? {
-        return this.userRepository.findByEmail(email)?.let {
-            userMapper.toResponse(it)
+    override fun findByEmail(email: String): Account? {
+        return this.accountRepository.findAccountEntityByEmail(email)?.let {
+            accountMapper.toResponse(it)
         }
     }
 
-    override fun findById(ids: Set<Long>): List<User>? {
-        return this.userRepository.findAllById(ids).map {
-            userMapper.toResponse(it)
+    override fun findById(ids: Set<Long>): List<Account>? {
+        return this.accountRepository.findAllById(ids).map {
+            accountMapper.toResponse(it)
         }
     }
 
@@ -54,9 +52,5 @@ class UserServiceImpl : UserService {
 
     override fun delete(id: Long) {
         this.userRepository.deleteById(id)
-    }
-
-    override fun authenticatedUser(): String? {
-        return SecurityContextHolder.getContext().authentication.name
     }
 }

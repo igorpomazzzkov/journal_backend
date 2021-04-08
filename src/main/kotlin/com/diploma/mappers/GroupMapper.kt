@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service
 @Service
 class GroupMapper {
 
-    @Autowired
-    private lateinit var studentMapper: StudentMapper
+//    @Autowired
+//    private lateinit var studentMapper: StudentMapper
 
     fun toResponse(groupEntity: GroupEntity): Group {
         return Group(
@@ -17,9 +17,9 @@ class GroupMapper {
             name = groupEntity.name,
             countOfStudents = groupEntity.students.size,
             course = groupEntity.course,
-            students = groupEntity.students.map {
-                studentMapper.toResponse(it)
-            }
+//            students = groupEntity.students.map {
+//                studentMapper.toResponse(it)
+//            }
         )
     }
 }

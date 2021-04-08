@@ -54,7 +54,6 @@ class AuthenticationController {
         try {
             var username: String = autheticateDto.username
             var roles: Set<String> = emptySet()
-            var image: String = "null"
             val token = userService.findByEmailOrMobile(username)
                 .takeIf { it != null }?.let {
                     authenticationManager.authenticate(
@@ -67,7 +66,6 @@ class AuthenticationController {
                     roles = it.roles.map { it ->
                         it.name
                     }.toSet()
-                    image = it.image ?: "null"
                     jwtTokenProvider.createToken(username, it.roles)
                 } ?: run {
                 throw UsernameNotFoundException("Неверный email или телефон")
@@ -76,7 +74,6 @@ class AuthenticationController {
             response["username"] = username
             response["token"] = token
             response["roles"] = roles
-            response["image"] = image
             return ResponseEntity.ok(response)
         } catch (ex: AuthenticationException) {
             throw BadCredentials("Неверный логин или пароль")

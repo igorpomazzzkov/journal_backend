@@ -9,6 +9,7 @@
     <include file="db/changelog/roles.xml"/>
     <include file="db/changelog/subjects.xml"/>
     <include file="db/changelog/groups.xml"/>
+    <include file="db/changelog/accounts.xml"/>
     <include file="db/changelog/teachers.xml"/>
     <include file="db/changelog/students.xml"/>
     <include file="db/changelog/journal.xml"/>

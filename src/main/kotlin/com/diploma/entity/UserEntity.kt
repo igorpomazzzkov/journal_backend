@@ -18,9 +18,6 @@ class UserEntity(
     @Column(name = "mobile", nullable = true)
     var mobile: String? = null,
 
-    @Column(name = "image", nullable = true)
-    var image: String? = null,
-
     @ElementCollection(targetClass = Role::class, fetch = FetchType.EAGER)
     @CollectionTable(
         name = "roles",

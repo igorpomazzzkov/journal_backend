@@ -16,7 +16,6 @@
             <column name="mobile" type="varchar">
                 <constraints unique="true"/>
             </column>
-            <column name="image" type="varchar"/>
             <column name="password" type="varchar"/>
         </createTable>
     </changeSet>
