@@ -22,4 +22,12 @@
             VALUES(2, 'Доцент кафедры ИРТ')
         </sql>
     </changeSet>
+    <changeSet id="insert-data-into-teachers-table-two" author="igorpomazkov">
+        <sql>
+            INSERT INTO teachers(account_id, description)
+            VALUES(35, 'Доцент кафедры ИРТ'),
+            (36, 'Доценкт кафедры КСиС, Педагог 2 категории'),
+            (37, 'Доцент кафедры ИРТ, Педагог высшей категории');
+        </sql>
+    </changeSet>
 </databaseChangeLog>

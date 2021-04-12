@@ -66,4 +66,9 @@ class GroupController {
     fun deleteGroup(@PathVariable id: Long) {
         this.groupService.deleteById(id)
     }
+
+    @DeleteMapping(params = ["ids"])
+    fun deleteGroups(@RequestParam ids: Set<Long>) {
+        this.groupService.deleteByIds(ids)
+    }
 }

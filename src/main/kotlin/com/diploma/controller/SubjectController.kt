@@ -49,4 +49,10 @@ class SubjectController {
     fun deleteGroup(@PathVariable id: Long) {
         this.subjectService.deleteById(id)
     }
+
+    @DeleteMapping(params = ["ids"])
+    fun deleteGroups(@RequestParam ids: Set<Long>) {
+        println(ids)
+        this.subjectService.deleteByIds(ids)
+    }
 }

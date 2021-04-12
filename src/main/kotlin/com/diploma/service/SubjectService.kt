@@ -43,4 +43,8 @@ class SubjectService {
     fun deleteById(id: Long) {
         this.subjectRepository.deleteById(id)
     }
+
+    fun deleteByIds(ids: Set<Long>) {
+        this.subjectRepository.deleteAllById(ids)
+    }
 }

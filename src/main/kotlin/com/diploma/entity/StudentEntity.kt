@@ -29,4 +29,7 @@ data class StudentEntity(
     @ManyToOne(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
     @JoinColumn(name = "group_id", referencedColumnName = "id")
     val group: GroupEntity? = null,
+
+    @Column(name = "group_id", insertable = false, updatable = false)
+    val groupId: Long? = null
 )

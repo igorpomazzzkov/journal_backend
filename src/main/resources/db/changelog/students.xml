@@ -19,10 +19,37 @@
             </column>
         </createTable>
     </changeSet>
-<!--    <changeSet id="insert-data-into-students-table" author="igorpomazkov">-->
-<!--        <sql>-->
-<!--            INSERT INTO students(identifier, group_id, account_id)-->
-<!--            VALUES(84460001, 1, 3)-->
-<!--        </sql>-->
-<!--    </changeSet>-->
+    <changeSet id="insert-data-into-students-table" author="igorpomazkov">
+        <sql>
+            INSERT INTO students(identifier, group_id, account_id)
+            VALUES(84460001, 1, 3),
+            (84460002, 1, 4),
+            (84460003, 1, 5),
+            (84460004, 1, 6),
+            (84460005, 1, 7),
+            (84460006, 1, 8),
+            (84460007, 1, 9),
+            (84460008, 1, 10),
+            (84460009, 1, 11),
+            (84460010, 1, 12),
+            (84460011, 1, 13),
+            (84460012, 1, 14),
+            (84460013, 1, 15),
+            (84460014, 1, 16),
+            (84460015, 1, 17),
+            (84460016, 1, 18),
+            (84460017, 1, 19),
+            (84460018, 1, 20),
+            (84460019, 1, 21),
+            (84460020, 1, 22),
+            (84460021, 1, 23),
+            (84460022, 1, 24),
+            (84460023, 1, 25),
+            (84460024, 1, 26),
+            (84460025, 1, 27),
+            (84460001, 2, 28),
+            (84460002, 2, 29),
+            (84460003, 2, 30);
+        </sql>
+    </changeSet>
 </databaseChangeLog>

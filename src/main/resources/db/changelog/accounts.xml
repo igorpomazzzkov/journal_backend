@@ -65,4 +65,13 @@
             ('Андреев','Андрей','Андреевич')
         </sql>
     </changeSet>
+    <changeSet id="insert-data-into-accounts-table-three" author="igorpomazkov">
+        <sql>
+            INSERT INTO accounts(last_name, first_name, middle_name)
+            VALUES('Парафиянович','Томара','Константиновна'),
+            ('Ковальчук', 'Илона', 'Викторовна'),
+            ('Титова', 'Елена', 'Анатольевна'),
+            ('Славинская', 'Ольга', 'Васильевна');
+        </sql>
+    </changeSet>
 </databaseChangeLog>

@@ -46,4 +46,8 @@ class GroupService {
     fun deleteById(id: Long) {
         this.groupRepository.deleteById(id)
     }
+
+    fun deleteByIds(ids: Set<Long>) {
+        this.groupRepository.deleteAllById(ids)
+    }
 }

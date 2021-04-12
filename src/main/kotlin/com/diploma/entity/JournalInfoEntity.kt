@@ -13,7 +13,7 @@ class JournalInfoEntity(
     @Column(name = "mark")
     val mark: Int? = null,
 
-    @Column(name = "journal_id")
+    @Column(name = "journal_id", insertable = false, updatable = false)
     val journalId: Long? = null,
 
     @ManyToOne
@@ -24,7 +24,15 @@ class JournalInfoEntity(
     @Column(name = "mark_type")
     val markType: MartType? = null,
 
-    val date: Timestamp? = null
+    val date: Timestamp? = null,
+
+    @ManyToOne(
+        fetch = FetchType.LAZY,
+        cascade = [CascadeType.ALL],
+        targetEntity = JournalEntity::class
+    )
+    @JoinColumn(name = "journal_id", referencedColumnName = "id")
+    val journals: JournalEntity? = null
 )
 
 enum class MartType(val id: Int) {

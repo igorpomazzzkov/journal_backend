@@ -12,8 +12,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
-import org.springframework.web.servlet.config.annotation.CorsRegistry
+import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.cors.CorsConfigurationSource
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
+import java.util.List
 import javax.servlet.http.HttpServletResponse
 
 
@@ -21,30 +24,40 @@ import javax.servlet.http.HttpServletResponse
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 class SecurityConfig :
-    WebSecurityConfigurerAdapter(), WebMvcConfigurer {
+    WebMvcConfigurer,
+    WebSecurityConfigurerAdapter() {
 
     @Autowired
     private lateinit var jwtTokenFilter: JwtTokenFilter
 
     @Value("\${allowed.origins.front}")
-    private lateinit var origins: String
+    private lateinit var frontOrigin: String
 
     @Bean
     override fun authenticationManagerBean(): AuthenticationManager {
         return super.authenticationManagerBean()
     }
 
-    override fun addCorsMappings(registry: CorsRegistry) {
-        registry.addMapping("/**")
-            .allowedOrigins(origins)
-            .allowedMethods("*")
+    @Bean
+    fun corsConfigurationSource(): CorsConfigurationSource {
+        val configuration = CorsConfiguration()
+        configuration.allowedOrigins = List.of(frontOrigin)
+        configuration.allowedMethods = List.of("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH")
+        configuration.allowCredentials = true
+        configuration.addExposedHeader("Message")
+        configuration.allowedHeaders =
+            List.of("Authorization", "Cache-Control", "Content-Type", "No-Auth")
+        val source = UrlBasedCorsConfigurationSource()
+        source.registerCorsConfiguration("/**", configuration)
+        return source
     }
+
 
     @Throws(RuntimeException::class)
     override fun configure(http: HttpSecurity) {
         http
-            .csrf().disable()
             .cors().and()
+            .csrf().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .logout().permitAll()
