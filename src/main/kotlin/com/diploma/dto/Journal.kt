@@ -8,7 +8,8 @@ data class Journal(
     val subject: Subject?,
     val teacher: Teacher?,
     val createdDate: Timestamp?,
-    val lastUpdated: Timestamp?,
+    val lastUpdated: String?,
+    val teacherFio: String?,
 )
 
 

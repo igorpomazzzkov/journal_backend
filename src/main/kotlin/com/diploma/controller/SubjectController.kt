@@ -52,7 +52,6 @@ class SubjectController {
 
     @DeleteMapping(params = ["ids"])
     fun deleteGroups(@RequestParam ids: Set<Long>) {
-        println(ids)
         this.subjectService.deleteByIds(ids)
     }
 }

@@ -25,10 +25,10 @@ class AccountEntity (
     @Column(name = "image", nullable = true)
     val image: String? = null,
 
-    @Column(name = "birthday", nullable = false)
+    @Column(name = "birthday", nullable = true)
     val birthday: Timestamp? = null,
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @OneToOne(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     val user: UserEntity? = null,
 )

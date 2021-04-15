@@ -2,10 +2,14 @@ package com.diploma.service
 
 import com.diploma.dto.AddStudent
 import com.diploma.dto.Student
+import com.diploma.entity.AccountEntity
 import com.diploma.entity.StudentEntity
+import com.diploma.exception.GroupIdNotFoundedException
 import com.diploma.exception.StudentIdNotFoundedException
 import com.diploma.mappers.AccountMapper
 import com.diploma.mappers.StudentMapper
+import com.diploma.repository.AccountRepository
+import com.diploma.repository.GroupRepository
 import com.diploma.repository.StudentRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
@@ -22,6 +26,12 @@ class StudentService {
 
     @Autowired
     private lateinit var accountMapper: AccountMapper
+
+    @Autowired
+    private lateinit var groupRepository: GroupRepository
+
+    @Autowired
+    private lateinit var accountRepository: AccountRepository
 
     fun getAll(): List<Student> {
         return this.repository.findAll().map {
@@ -59,10 +69,15 @@ class StudentService {
         val studentEntity = StudentEntity(
             identifier = addStudent.identifier,
             groupId = addStudent.groupId,
-            account = addStudent.account?.let { accountMapper.toEntity(it) }
+            account = addStudent.account?.let { accountMapper.toEntity(it) },
+            group = groupRepository.findById(addStudent.groupId).orElseThrow {
+                GroupIdNotFoundedException("Группа не существует")
+            }
         )
-        return this.repository.save(studentEntity).let {
+        val response = this.repository.save(studentEntity).let {
             mapper.toResponse(it)
         }
+        println(response)
+        return response
     }
 }

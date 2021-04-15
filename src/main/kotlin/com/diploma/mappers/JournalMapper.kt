@@ -17,13 +17,17 @@ class JournalMapper {
     private lateinit var teacherMapper: TeacherMapper
 
     fun toResponse(journalEntity: JournalEntity): Journal {
+        val teacherFio = journalEntity.teacherEntity?.account?.lastName + " " +
+                journalEntity.teacherEntity?.account?.firstName?.substring(0, 1)?.toUpperCase() + ". " +
+                journalEntity.teacherEntity?.account?.middleName?.substring(0, 1)?.toUpperCase() + "."
         return Journal(
             id = journalEntity.id,
             teacher = journalEntity.teacherEntity?.let { teacherMapper.toResponse(it) },
             subject = journalEntity.subject?.let { subjectMapper.toResponse(it) },
             group = journalEntity.group?.let { groupMapper.toResponse(it) },
             createdDate = journalEntity.createdDate,
-            lastUpdated = journalEntity.lastUpdated
+            lastUpdated = journalEntity.lastUpdated.toString().substring(0, 19),
+            teacherFio = teacherFio
         )
     }
 }
