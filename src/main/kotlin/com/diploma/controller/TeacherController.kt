@@ -13,7 +13,7 @@ class TeacherController {
     private lateinit var teacherService: TeacherService
 
     @GetMapping
-    fun getAllTeachers(pageable: Pageable) = this.teacherService.getAllTeachers(pageable)
+    fun getAllTeachers() = this.teacherService.getAllTeachers()
 
     @GetMapping("{id}")
     fun getTeacherById(@PathVariable id: Long) = this.teacherService.getTeacherById(id)

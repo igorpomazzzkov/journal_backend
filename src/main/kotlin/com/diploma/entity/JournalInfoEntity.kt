@@ -20,9 +20,8 @@ class JournalInfoEntity(
     @JoinColumn(name = "student_id")
     val student: StudentEntity? = null,
 
-    @Enumerated(EnumType.ORDINAL)
     @Column(name = "mark_type")
-    val markType: MartType? = null,
+    val markType: String? = null,
 
     val date: Timestamp? = null,
 

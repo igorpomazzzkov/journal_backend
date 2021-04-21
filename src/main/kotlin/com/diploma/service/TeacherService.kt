@@ -22,7 +22,7 @@ class TeacherService {
     @Autowired
     private lateinit var accountMapper: AccountMapper
 
-    fun getAllTeachers(pageable: Pageable) = this.teacherRepository.findAll(pageable)
+    fun getAllTeachers() = this.teacherRepository.findAll()
 
     fun getTeacherById(id: Long): Teacher {
         return this.teacherRepository.findById(id).orElseThrow {
