@@ -45,9 +45,9 @@ class StudentService {
         }
     }
 
-    fun getAllStudentsByGroupId(groupId: Long) = this.repository.findAllByGroupId(groupId)?.map {
-        mapper.toResponse(it)
-    }
+    fun getAllStudentsByGroupId(groupId: Long): List<Student> = this.repository.findAllByGroupId(groupId).map {
+            mapper.toResponse(it)
+        }
 
     fun getStudentById(id: Long): Student {
         return this.repository.findById(id).orElseThrow {

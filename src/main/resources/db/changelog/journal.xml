@@ -40,14 +40,25 @@
             </column>
             <column name="mark" type="int"/>
             <column name="mark_type" type="varchar"/>
-            <column name="date" type="datetime"/>
+            <column name="date" type="date"/>
         </createTable>
     </changeSet>
     <changeSet id="insert-data-into-journals" author="igorpomazkov">
         <sql>
             INSERT INTO journals(subject_id, teacher_id, group_id, created_date, last_updated)
             VALUES(4, 36, 1, NOW(), NOW()),
-            (11, 37, 1, NOW(), NOW());
+            (11, 2, 1, NOW(), NOW());
+        </sql>
+    </changeSet>
+    <changeSet id="insert-into-info-journal" author="igorpomazkov">
+        <sql>
+            INSERT INTO journal_info(journal_id, student_id, mark, mark_type, date)
+            VALUES(2, 11, 9, 'Устный опрос', NOW()),
+            (2, 13, 7, 'Устный опрос', NOW()),
+            (2, 9, 8, 'Устный опрос', NOW()),
+            (2, 16, 4, 'Устный опрос', NOW()),
+            (2, 7, 6, 'Устный опрос', NOW()),
+            (2, 21, 5, 'Устный опрос', NOW());
         </sql>
     </changeSet>
 </databaseChangeLog>
