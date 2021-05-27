@@ -10,7 +10,10 @@ interface UserRepository : JpaRepository<UserEntity, Long> {
     fun findByEmailOrMobile(email: String, mobile: String): UserEntity?
 }
 
-interface AccountRepository: JpaRepository<AccountEntity, Long>{
+interface AccountRepository : JpaRepository<AccountEntity, Long> {
     @Query(value = "SELECT a FROM AccountEntity a WHERE a.user.email = :email")
     fun findAccountEntityByEmail(email: String): AccountEntity?
+
+    @Query(value = "SELECT a FROM AccountEntity a WHERE UPPER(CONCAT(a.lastName, ' ', a.firstName, ' ', a.middleName)) LIKE '%' || UPPER(:name) || '%' ")
+    fun findAllByLastNameAndFirstNameAndMiddleNameIgnoreCaseContaining(name: String): List<AccountEntity>
 }

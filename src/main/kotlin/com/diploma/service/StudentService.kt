@@ -2,7 +2,6 @@ package com.diploma.service
 
 import com.diploma.dto.AddStudent
 import com.diploma.dto.Student
-import com.diploma.entity.AccountEntity
 import com.diploma.entity.StudentEntity
 import com.diploma.exception.GroupIdNotFoundedException
 import com.diploma.exception.StudentIdNotFoundedException
@@ -45,9 +44,11 @@ class StudentService {
         }
     }
 
-    fun getAllStudentsByGroupId(groupId: Long): List<Student> = this.repository.findAllByGroupId(groupId).map {
+    fun getAllStudentsByGroupId(groupId: Long): List<Student> {
+        return this.repository.findAllByGroupId(groupId).map {
             mapper.toResponse(it)
         }
+    }
 
     fun getStudentById(id: Long): Student {
         return this.repository.findById(id).orElseThrow {
@@ -77,7 +78,13 @@ class StudentService {
         val response = this.repository.save(studentEntity).let {
             mapper.toResponse(it)
         }
-        println(response)
         return response
     }
+
+    fun searchStudent(nameDesc: String) =
+        this.accountRepository.findAllByLastNameAndFirstNameAndMiddleNameIgnoreCaseContaining(nameDesc).filter {
+            !this.repository.findAllByAccountId(it.id).isEmpty()
+        }.map {
+            accountMapper.toResponse(it)
+        }
 }

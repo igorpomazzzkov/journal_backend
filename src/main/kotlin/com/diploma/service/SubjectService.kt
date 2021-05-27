@@ -17,7 +17,7 @@ class SubjectService {
         return this.subjectRepository.findAll()
     }
 
-    fun searchSubject(name: String): List<SubjectEntity>? {
+    fun searchSubject(name: String): List<SubjectEntity> {
         return this.subjectRepository.findAllByNameIsContaining(name)
     }
 

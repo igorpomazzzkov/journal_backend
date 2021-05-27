@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface StudentRepository : JpaRepository<StudentEntity, Long> {
     fun findAllByGroupId(groupId: Long): List<StudentEntity>
+    fun findAllByAccountId(accountId: Long): List<StudentEntity>
 }

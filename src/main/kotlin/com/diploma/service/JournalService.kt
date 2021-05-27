@@ -72,9 +72,6 @@ class JournalService {
     }
 
     fun getJournalInfo(id: Long): List<JournalInfoEntity>{
-        journalInfoRepository.findJournalInfoEntitiesByJournalId(id).forEach {
-            println(it.mark)
-        }
         return journalInfoRepository.findJournalInfoEntitiesByJournalId(id)
     }
 }

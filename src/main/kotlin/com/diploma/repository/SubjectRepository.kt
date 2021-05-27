@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface SubjectRepository : JpaRepository<SubjectEntity, Long> {
-    fun findAllByNameIsContaining(name: String): List<SubjectEntity>?
+    fun findAllByNameIsContaining(name: String): List<SubjectEntity>
 }
