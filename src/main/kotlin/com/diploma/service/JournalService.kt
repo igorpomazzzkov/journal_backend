@@ -1,10 +1,12 @@
 package com.diploma.service
 
 import com.diploma.dto.AddJournal
+import com.diploma.dto.AddJournalInfo
 import com.diploma.dto.Journal
 import com.diploma.entity.JournalEntity
 import com.diploma.entity.JournalInfoEntity
 import com.diploma.exception.JournalIdNotFoundedException
+import com.diploma.mappers.JournalInfoMapper
 import com.diploma.mappers.JournalMapper
 import com.diploma.repository.JournalInfoRepository
 import com.diploma.repository.JournalRepository
@@ -23,6 +25,9 @@ class JournalService {
 
     @Autowired
     private lateinit var journalMapper: JournalMapper
+
+    @Autowired
+    private lateinit var journalInfoMapper: JournalInfoMapper
 
     fun getAllJournals() = this.journalRepository.findAll().map {
         journalMapper.toResponse(it)
@@ -71,7 +76,14 @@ class JournalService {
         }
     }
 
-    fun getJournalInfo(id: Long): List<JournalInfoEntity>{
+    fun getJournalInfo(id: Long): List<JournalInfoEntity> {
         return journalInfoRepository.findJournalInfoEntitiesByJournalId(id)
+    }
+
+    fun addNewDateForJournal(id: Long, addJournalInfo: AddJournalInfo): JournalInfoEntity {
+        val entity = journalInfoMapper.toEntity(addJournalInfo)
+        println(entity)
+        println(id)
+        return this.journalInfoRepository.save(journalInfoMapper.toEntity(addJournalInfo))
     }
 }

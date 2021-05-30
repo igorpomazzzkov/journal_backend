@@ -1,6 +1,7 @@
 package com.diploma.controller
 
 import com.diploma.dto.AddJournal
+import com.diploma.dto.AddJournalInfo
 import com.diploma.dto.Journal
 import com.diploma.dto.JournalInfo
 import com.diploma.mappers.JournalInfoMapper
@@ -49,4 +50,8 @@ class JournalController {
             journalInfoMapper.toResponse(it)
         }
     }
+
+    @PostMapping("{id}")
+    fun addNewDate(@PathVariable id: Long, @RequestBody addJournalInfo: AddJournalInfo) =
+        this.journalService.addNewDateForJournal(id, addJournalInfo)
 }

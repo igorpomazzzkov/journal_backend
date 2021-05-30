@@ -41,6 +41,7 @@
             <column name="mark" type="int"/>
             <column name="mark_type" type="varchar"/>
             <column name="date" type="date"/>
+            <column name="desc" type="text"/>
         </createTable>
     </changeSet>
     <changeSet id="insert-data-into-journals" author="igorpomazkov">

@@ -8,7 +8,7 @@ import javax.persistence.*
 class JournalInfoEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
+    val id: Long = 0,
 
     @Column(name = "mark")
     val mark: Int? = null,
@@ -19,6 +19,9 @@ class JournalInfoEntity(
     @ManyToOne
     @JoinColumn(name = "student_id")
     val student: StudentEntity? = null,
+
+    @Column(name = "student_id", insertable = false, updatable = false)
+    val studentId: Long? = null,
 
     @Column(name = "mark_type")
     val markType: String? = null,
@@ -31,7 +34,10 @@ class JournalInfoEntity(
         targetEntity = JournalEntity::class
     )
     @JoinColumn(name = "journal_id", referencedColumnName = "id")
-    val journals: JournalEntity? = null
+    val journals: JournalEntity? = null,
+
+    @Column(name = "desc", nullable = true)
+    val description: String? = null
 )
 
 enum class MartType(val id: Int) {

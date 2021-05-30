@@ -1,11 +1,13 @@
 package com.diploma.mappers
 
+import com.diploma.dto.AddJournalInfo
 import com.diploma.dto.Journal
 import com.diploma.dto.JournalInfo
 import com.diploma.entity.JournalEntity
 import com.diploma.entity.JournalInfoEntity
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.sql.Timestamp
 
 @Service
 class JournalMapper {
@@ -46,6 +48,16 @@ class JournalInfoMapper {
             mark = journalInfoEntity.mark,
             markType = journalInfoEntity.markType,
             date = journalInfoEntity.date,
+        )
+    }
+
+    fun toEntity(addJournalInfo: AddJournalInfo): JournalInfoEntity {
+        return JournalInfoEntity(
+            studentId = addJournalInfo.studentId,
+            journalId = addJournalInfo.journalId,
+            markType = addJournalInfo.markType,
+            description = addJournalInfo.desc,
+            date = Timestamp(addJournalInfo.date.toLong())
         )
     }
 }

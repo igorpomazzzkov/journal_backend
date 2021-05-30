@@ -1,6 +1,7 @@
 package com.diploma.dto
 
 import java.sql.Timestamp
+import java.util.*
 
 data class Journal(
     val id: Long?,
@@ -24,4 +25,13 @@ data class JournalInfo(
     val mark: Int?,
     val markType: String?,
     val date: Timestamp?
+)
+
+data class AddJournalInfo(
+    val studentId: Long,
+    val journalId: Long,
+    val mark: Int,
+    val markType: String,
+    val date: String,
+    val desc: String?
 )
