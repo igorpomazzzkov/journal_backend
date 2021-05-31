@@ -17,6 +17,7 @@
             <column name="account_id" type="bigint">
                 <constraints foreignKeyName="teacher-user-fk" referencedTableName="accounts" referencedColumnNames="id"/>
             </column>
+            <column name="telegram_chat_id" type="bigint"/>
         </createTable>
     </changeSet>
     <changeSet id="insert-data-into-students-table" author="igorpomazkov">

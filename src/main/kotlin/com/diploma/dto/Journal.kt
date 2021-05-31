@@ -32,6 +32,6 @@ data class AddJournalInfo(
     val journalId: Long,
     val mark: Int,
     val markType: String,
-    val date: String,
+    val date: Long?,
     val desc: String?
 )

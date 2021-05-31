@@ -8,35 +8,37 @@ import javax.persistence.*
 class JournalInfoEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true)
     val id: Long = 0,
 
     @Column(name = "mark")
     val mark: Int? = null,
 
-    @Column(name = "journal_id", insertable = false, updatable = false)
+    @Column(name = "journal_id")
     val journalId: Long? = null,
 
     @ManyToOne
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "student_id", insertable = false, updatable = false)
     val student: StudentEntity? = null,
 
-    @Column(name = "student_id", insertable = false, updatable = false)
+    @Column(name = "student_id")
     val studentId: Long? = null,
 
     @Column(name = "mark_type")
     val markType: String? = null,
 
-    val date: Timestamp? = null,
+    @Column(name = "date_marks", nullable = true)
+    val dateMarks: Timestamp? = null,
 
     @ManyToOne(
         fetch = FetchType.LAZY,
         cascade = [CascadeType.ALL],
         targetEntity = JournalEntity::class
     )
-    @JoinColumn(name = "journal_id", referencedColumnName = "id")
+    @JoinColumn(name = "journal_id", referencedColumnName = "id", insertable = false, updatable = false)
     val journals: JournalEntity? = null,
 
-    @Column(name = "desc", nullable = true)
+    @Column(name = "description")
     val description: String? = null
 )
 

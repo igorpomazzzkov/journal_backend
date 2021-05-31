@@ -1,16 +1,6 @@
 package com.diploma.entity
 
-import javax.persistence.CascadeType
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.FetchType
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
-import javax.persistence.JoinColumn
-import javax.persistence.ManyToOne
-import javax.persistence.OneToOne
-import javax.persistence.Table
+import javax.persistence.*
 
 @Entity
 @Table(name = "students")
@@ -20,19 +10,22 @@ data class StudentEntity(
     val id: Long = 0,
 
     @Column(name = "identifier")
-    val identifier: String? = null,
+    var identifier: String? = null,
 
     @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     val account: AccountEntity? = null,
 
     @Column(name = "account_id", insertable = false, updatable = false)
-    val accountId: Long? = null,
+    var accountId: Long? = null,
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "group_id", referencedColumnName = "id")
     val group: GroupEntity? = null,
 
     @Column(name = "group_id", insertable = false, updatable = false)
-    val groupId: Long? = null
+    var groupId: Long? = null,
+
+    @Column(name = "telegram_chat_id", nullable = true)
+    var telegramChatId: Long? = null
 )

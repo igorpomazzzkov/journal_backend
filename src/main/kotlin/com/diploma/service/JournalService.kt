@@ -13,7 +13,8 @@ import com.diploma.repository.JournalRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.sql.Timestamp
-import java.util.*
+import java.util.Date
+
 
 @Service
 class JournalService {
@@ -83,7 +84,6 @@ class JournalService {
     fun addNewDateForJournal(id: Long, addJournalInfo: AddJournalInfo): JournalInfoEntity {
         val entity = journalInfoMapper.toEntity(addJournalInfo)
         println(entity)
-        println(id)
         return this.journalInfoRepository.save(journalInfoMapper.toEntity(addJournalInfo))
     }
 }

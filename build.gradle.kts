@@ -16,6 +16,7 @@ repositories {
     mavenCentral()
     maven { url = uri("https://repo.spring.io/milestone") }
     maven { url = uri("https://repo.spring.io/snapshot") }
+    maven { url = uri("https://jitpack.io") }
 }
 
 dependencies {
@@ -29,8 +30,10 @@ dependencies {
     implementation("io.jsonwebtoken", "jjwt", "0.9.0")
     implementation("io.springfox", "springfox-swagger2", "2.9.2")
     implementation("io.springfox", "springfox-swagger-ui", "2.9.2")
+    implementation("com.github.elbekD", "kt-telegram-bot", "1.3.8")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
 }
 
 tasks.withType<KotlinCompile> {

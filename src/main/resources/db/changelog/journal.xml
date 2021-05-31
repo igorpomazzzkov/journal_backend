@@ -40,8 +40,8 @@
             </column>
             <column name="mark" type="int"/>
             <column name="mark_type" type="varchar"/>
-            <column name="date" type="date"/>
-            <column name="desc" type="text"/>
+            <column name="date_marks" type="timestamp"/>
+            <column name="description" type="varchar(1000)"/>
         </createTable>
     </changeSet>
     <changeSet id="insert-data-into-journals" author="igorpomazkov">
@@ -53,7 +53,7 @@
     </changeSet>
     <changeSet id="insert-into-info-journal" author="igorpomazkov">
         <sql>
-            INSERT INTO journal_info(journal_id, student_id, mark, mark_type, date)
+            INSERT INTO journal_info(journal_id, student_id, mark, mark_type, date_marks)
             VALUES(2, 11, 9, 'Устный опрос', NOW()),
             (2, 13, 7, 'Устный опрос', NOW()),
             (2, 9, 8, 'Устный опрос', NOW()),

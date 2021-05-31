@@ -8,6 +8,8 @@ import com.diploma.entity.JournalInfoEntity
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.sql.Timestamp
+import java.text.SimpleDateFormat
+import java.util.*
 
 @Service
 class JournalMapper {
@@ -47,7 +49,7 @@ class JournalInfoMapper {
             student = journalInfoEntity.student?.let { studentMapper.toResponse(it) },
             mark = journalInfoEntity.mark,
             markType = journalInfoEntity.markType,
-            date = journalInfoEntity.date,
+            date = SimpleDateFormat("dd/MM/yyyy").parse(journalInfoEntity.dateMarks.),
         )
     }
 
@@ -56,8 +58,9 @@ class JournalInfoMapper {
             studentId = addJournalInfo.studentId,
             journalId = addJournalInfo.journalId,
             markType = addJournalInfo.markType,
+            mark = addJournalInfo.mark,
             description = addJournalInfo.desc,
-            date = Timestamp(addJournalInfo.date.toLong())
+            dateMarks = addJournalInfo.date?.let { Timestamp(it) } ?: Timestamp(Date().time)
         )
     }
 }
