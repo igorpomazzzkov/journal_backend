@@ -85,7 +85,7 @@ class JournalService {
         }
     }
 
-    fun getJournalInfo(id: Long): List<JournalInfoEntity> {
+    fun getJournalInfo(id: Long): MutableList<JournalInfoEntity> {
         return journalInfoRepository.findJournalInfoEntitiesByJournalId(id)
     }
 
@@ -95,14 +95,16 @@ class JournalService {
         return this.journalInfoRepository.save(journalInfoMapper.toEntity(addJournalInfo))
     }
 
-    fun getHeader(id: Long) = this.getJournalInfo(id).map {
-        SimpleDateFormat("yyyy-MM-dd").format(it.dateMarks)
-    }.sortedBy { it }.distinctBy { it }
+    fun getHeader(id: Long): List<String> {
+        return this.getJournalInfo(id).map {
+            SimpleDateFormat("yyyy-MM-dd").format(it.dateMarks)
+        }.sortedBy { it }.distinctBy { it }
+    }
 
-    fun getCell(id: Long, groupId: Long): HashMap<String, List<Int?>> {
+    fun getCell(id: Long): MutableList<MutableList<String>> {
         val items = HashMap<String, List<Int?>>()
         val journalInfo = this.getJournalInfo(id)
-        val students = this.studentService.getAllStudentsByGroupId(groupId)
+        val students = this.studentService.getAllStudentsByJournalId(id)
         val header = this.getHeader(id)
         for (student in students) {
             journalInfo.filter { it.student?.id == student.id }.let { marks ->
@@ -119,6 +121,24 @@ class JournalService {
                 )
             }
         }
-        return items
+        return toCell(items)
+    }
+
+    private fun toCell(maps: HashMap<String, List<Int?>>): MutableList<MutableList<String>> {
+        val res: MutableList<MutableList<String>> = mutableListOf()
+        maps.keys.sortedBy { it }.forEach {
+            val arr = mutableListOf<String>()
+            arr.add(it)
+            maps[it]?.forEach {
+                if (it == null) {
+                    arr.add("")
+                } else {
+                    arr.add(it.toString())
+                }
+            }
+            res.add(arr)
+        }
+        println(res)
+        return res
     }
 }

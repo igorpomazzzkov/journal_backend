@@ -49,10 +49,14 @@ class JournalController {
     }.sortedBy { it.date }
 
     @GetMapping("{id}/header")
-    fun getHeader(@PathVariable id: Long) = this.journalService.getHeader(id)
+    fun getHeader(@PathVariable id: Long): MutableList<String> {
+        val res = this.journalService.getHeader(id).toMutableList()
+        res.add(0, "Учащиеся")
+        return res
+    }
 
     @GetMapping("{id}/cell")
-    fun getCell(@PathVariable id: Long, @RequestParam groupId: Long) = this.journalService.getCell(id, groupId)
+    fun getCell(@PathVariable id: Long) = this.journalService.getCell(id)
 
     @PostMapping("{id}")
     fun addNewDate(@PathVariable id: Long, @RequestBody addJournalInfo: AddJournalInfo) =

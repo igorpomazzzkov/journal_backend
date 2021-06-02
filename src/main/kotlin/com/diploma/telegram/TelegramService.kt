@@ -48,7 +48,7 @@ class TelegramService {
                         "Приветствую, ${this.account?.lastName} ${this.account?.firstName} ${this.account?.middleName}.\nТеперь ты будешь получать уведомления об отметках"
                     )
                 } ?: run {
-                    bot.sendMessage(it.chat.id, "Учащихся с идентификатором ${it.text} не нейден")
+                    bot.sendMessage(it.chat.id, "Учащийся с идентификатором ${it.text} не нейден")
                     bot.jumpTo("phone_number", it)
                 }
             } ?: run {

@@ -14,5 +14,5 @@ interface JournalRepository: JpaRepository<JournalEntity, Long> {
 
 @Repository
 interface JournalInfoRepository: JpaRepository<JournalInfoEntity, Long>{
-    fun findJournalInfoEntitiesByJournalId(journalId: Long): List<JournalInfoEntity>
+    fun findJournalInfoEntitiesByJournalId(journalId: Long): MutableList<JournalInfoEntity>
 }

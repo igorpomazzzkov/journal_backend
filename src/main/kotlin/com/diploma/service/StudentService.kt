@@ -50,6 +50,12 @@ class StudentService {
         }.sortedBy { it.account?.lastName }
     }
 
+    fun getAllStudentsByJournalId(journalId: Long): List<Student> {
+        return this.repository.findAllByJournalId(journalId).map {
+            mapper.toResponse(it)
+        }.sortedBy { it.account?.lastName }
+    }
+
     fun getStudentById(id: Long): Student {
         return this.repository.findById(id).orElseThrow {
             throw StudentIdNotFoundedException("Студент не найден")

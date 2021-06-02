@@ -24,6 +24,9 @@ class StudentController {
     @GetMapping(params = ["groupId"])
     fun getAllStudentsByGroupId(@RequestParam groupId: Long) = this.studentService.getAllStudentsByGroupId(groupId)
 
+    @GetMapping(params = ["journalId"])
+    fun getAllStudentsByJournalId(@RequestParam journalId: Long) = this.studentService.getAllStudentsByJournalId(journalId)
+
     @PostMapping
     fun save(@RequestBody addStudent: AddStudent) = this.studentService.save(addStudent)
 
