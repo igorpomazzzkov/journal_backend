@@ -24,7 +24,7 @@ data class JournalInfo(
     val student: Student?,
     val mark: Int?,
     val markType: String?,
-    val date: Timestamp?
+    val date: String?
 )
 
 data class AddJournalInfo(

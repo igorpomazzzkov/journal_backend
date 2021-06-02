@@ -45,11 +45,12 @@ class JournalInfoMapper {
     private lateinit var studentMapper: StudentMapper
 
     fun toResponse(journalInfoEntity: JournalInfoEntity): JournalInfo {
+        val formter = SimpleDateFormat("yyyy-MM-dd")
         return JournalInfo(
             student = journalInfoEntity.student?.let { studentMapper.toResponse(it) },
             mark = journalInfoEntity.mark,
             markType = journalInfoEntity.markType,
-            date = SimpleDateFormat("dd/MM/yyyy").parse(journalInfoEntity.dateMarks.),
+            date = formter.format(journalInfoEntity.dateMarks)
         )
     }
 

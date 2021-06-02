@@ -1,5 +1,8 @@
 package com.diploma.telegram
 
+import com.diploma.entity.JournalInfoEntity
+import com.diploma.exception.StudentIdNotFoundedException
+import com.diploma.repository.JournalRepository
 import com.diploma.repository.StudentRepository
 import com.elbekD.bot.Bot
 import com.elbekD.bot.feature.chain.chain
@@ -9,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Service
+import java.text.SimpleDateFormat
 
 @Service
 class TelegramService {
@@ -23,12 +27,12 @@ class TelegramService {
     @Autowired
     private lateinit var studentRepository: StudentRepository
 
+    @Autowired
+    private lateinit var journalRepository: JournalRepository
+
     @EventListener(ApplicationReadyEvent::class)
     fun start() {
-        val bot = Bot.createPolling(name, token)
-        val contactMessage: Bot
-        val chat_id: Long? = null
-        val phone: String? = null
+        this.bot = Bot.createPolling(name, token)
         bot.chain("/start") { msg ->
             bot.sendMessage(
                 msg.chat.id,
@@ -55,11 +59,20 @@ class TelegramService {
     }
 
 
-    fun sendMessage(msg: TelegramMessage) {
-
+    fun sendMessage(id: Long, info: JournalInfoEntity) {
+        this.studentRepository.findById(id).map {
+            info.journalId?.let { it1 ->
+                journalRepository.findById(it1).map { j ->
+                    it.telegramChatId?.let { chat_id ->
+                        bot.sendMessage(
+                            chat_id,
+                            "${j.subject?.name} ${SimpleDateFormat("yyyy-MM-dd").format(info.dateMarks)}\nОтметка: ${info.mark} (${info.markType})\nПреподаватель: ${j.account?.lastName} ${j.account?.firstName} ${j.account?.middleName}\nСообщение от преподавателя: ${info.description}"
+                        )
+                    }
+                }
+            }
+        }.orElseThrow {
+            StudentIdNotFoundedException("Учащийся не найден")
+        }
     }
-}
-
-enum class TelegramMessage {
-    START, MARK
 }

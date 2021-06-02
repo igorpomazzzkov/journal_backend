@@ -47,7 +47,7 @@ class StudentService {
     fun getAllStudentsByGroupId(groupId: Long): List<Student> {
         return this.repository.findAllByGroupId(groupId).map {
             mapper.toResponse(it)
-        }
+        }.sortedBy { it.account?.lastName }
     }
 
     fun getStudentById(id: Long): Student {

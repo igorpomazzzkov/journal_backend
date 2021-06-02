@@ -10,10 +10,12 @@ import com.diploma.mappers.JournalInfoMapper
 import com.diploma.mappers.JournalMapper
 import com.diploma.repository.JournalInfoRepository
 import com.diploma.repository.JournalRepository
+import com.diploma.telegram.TelegramService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.sql.Timestamp
-import java.util.Date
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 @Service
@@ -29,6 +31,12 @@ class JournalService {
 
     @Autowired
     private lateinit var journalInfoMapper: JournalInfoMapper
+
+    @Autowired
+    private lateinit var studentService: StudentService
+
+    @Autowired
+    private lateinit var telegramService: TelegramService
 
     fun getAllJournals() = this.journalRepository.findAll().map {
         journalMapper.toResponse(it)
@@ -83,7 +91,34 @@ class JournalService {
 
     fun addNewDateForJournal(id: Long, addJournalInfo: AddJournalInfo): JournalInfoEntity {
         val entity = journalInfoMapper.toEntity(addJournalInfo)
-        println(entity)
+        telegramService.sendMessage(addJournalInfo.studentId, entity)
         return this.journalInfoRepository.save(journalInfoMapper.toEntity(addJournalInfo))
+    }
+
+    fun getHeader(id: Long) = this.getJournalInfo(id).map {
+        SimpleDateFormat("yyyy-MM-dd").format(it.dateMarks)
+    }.sortedBy { it }.distinctBy { it }
+
+    fun getCell(id: Long, groupId: Long): HashMap<String, List<Int?>> {
+        val items = HashMap<String, List<Int?>>()
+        val journalInfo = this.getJournalInfo(id)
+        val students = this.studentService.getAllStudentsByGroupId(groupId)
+        val header = this.getHeader(id)
+        for (student in students) {
+            journalInfo.filter { it.student?.id == student.id }.let { marks ->
+                var headerMarks =
+                    header.map { h -> marks.find { SimpleDateFormat("yyyy-MM-dd").format(it.dateMarks) == h } }
+                items.put(
+                    "${student.account?.lastName} ${
+                        student.account?.firstName?.substring(
+                            0,
+                            1
+                        )
+                    }. ${student.account?.middleName?.substring(0, 1)}.",
+                    headerMarks.map { it?.mark }
+                )
+            }
+        }
+        return items
     }
 }
