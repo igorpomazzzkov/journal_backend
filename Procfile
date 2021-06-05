@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes:target/dependency/* com.diploma.DiplomaApplication
+web: java $JAVA_OPTS -jar build/libs/diploma-1.0.jar
