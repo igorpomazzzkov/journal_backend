@@ -41,12 +41,12 @@ class SecurityConfig :
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
         val configuration = CorsConfiguration()
-        configuration.allowedOrigins = List.of(frontOrigin)
-        configuration.allowedMethods = List.of("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH")
+        configuration.allowedOrigins = listOf(frontOrigin)
+        configuration.allowedMethods = listOf("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH")
         configuration.allowCredentials = true
         configuration.addExposedHeader("Message")
         configuration.allowedHeaders =
-            List.of("Authorization", "Cache-Control", "Content-Type", "No-Auth")
+            listOf("Authorization", "Cache-Control", "Content-Type", "No-Auth")
         val source = UrlBasedCorsConfigurationSource()
         source.registerCorsConfiguration("/**", configuration)
         return source
