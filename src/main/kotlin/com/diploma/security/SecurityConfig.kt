@@ -42,7 +42,7 @@ class SecurityConfig :
     fun corsConfigurationSource(): CorsConfigurationSource {
         val configuration = CorsConfiguration()
         configuration.allowedOrigins = listOf(frontOrigin)
-        configuration.allowedMethods = listOf("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH")
+        configuration.allowedMethods = listOf("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
         configuration.allowCredentials = true
         configuration.addExposedHeader("Message")
         configuration.allowedHeaders =
