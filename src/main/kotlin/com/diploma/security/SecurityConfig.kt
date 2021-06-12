@@ -41,7 +41,7 @@ class SecurityConfig :
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
         val configuration = CorsConfiguration()
-        configuration.allowedOrigins = listOf(frontOrigin)
+        configuration.allowedOrigins = listOf("https://journalfrontend.herokuapp.com", "http://journalfrontend.herokuapp.com/")
         configuration.allowedMethods = listOf("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
         configuration.allowCredentials = true
         configuration.addExposedHeader("Message")
